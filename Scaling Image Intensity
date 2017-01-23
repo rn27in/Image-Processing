@@ -1,0 +1,6 @@
+dolphin = cv2.imread(r"../dolphin.png")
+dolphin = (0.7*dolphin)
+#dolphin.dtype  ###dtype('float64')
+
+cv2.imshow('dolphin', dolphin)
+cv2.waitKey(0)
