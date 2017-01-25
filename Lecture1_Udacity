@@ -1,0 +1,116 @@
+####Codes in python for basic image processing as per the first part of lectures of Udacity############
+
+###############Bicycle Cropping example#########################
+
+image = cv2.imread(r"D:/Gyan/Udacity Computer Vision/Images Data/bicycle.png")
+cv2.imshow('image', image)
+cv2.waitKey(0)
+#110: 310 ,10:160
+
+im = image[109:310,9:160]
+cv2.imshow('Cropped Image', im)
+cv2.waitKey(0)
+
+####################################################################
+
+###Obtaining the individual channels from RGB colour###############################
+
+a = image.transpose()
+a.shape###(3L, 320L, 258L)
+###Red chaneel ########################
+cv2.imshow('channel',a[2].transpose())##R Channel###########
+cv2.waitKey(0)
+##################################################################
+
+############Effect of Adding 2 images#######################
+bicycle = cv2.imread(r"../bicycle.png")
+dolphin = cv2.imread(r"../dolphin.png")
+
+cv2.imshow('bicycle', bicycle)
+cv2.waitKey(0)
+
+cv2.imshow('dolphin', dolphin)
+cv2.waitKey(0)
+
+bicycle.shape
+dolphin.shape
+
+summed = dolphin + bicycle
+summed = bicycle/2 + dolphin/2
+
+summed = (bicycle + dolphin)/2
+cv2.imshow('add',summed)
+cv2.waitKey(0)
+
+###################################################################
+
+#####Multiplying an image with a scalar####################
+####U need to convert the image back to uint8######################
+dolphin = dolphin * 0.7
+dolphin = dolphin.astype('uint8')
+cv2.imshow('dolphin_scaled', dolphin)
+cv2.waitKey(0)
+#############################################################
+
+#####Blending 2 images#######################
+bicycle = cv2.imread(r"../bicycle.png")
+dolphin = cv2.imread(r"../dolphin.png")
+
+result = 0.15*bicycle + 0.85*dolphin
+result = result.astype('uint8')
+cv2.imshow('blend', result)
+cv2.waitKey(0)
+######################################################################
+
+
+###########################Image Difference################################
+import matplotlib.pyplot as plt
+import pylab as P
+
+bicycle = cv2.imread(r"../bicycle.png")
+dolphin = cv2.imread(r"../dolphin.png")
+
+###To get the absolute difference between 2 images############
+#OpenCV function##########################
+result = cv2.subtract(bicycle,dolphin)
+cv2.imshow('diff', result)
+cv2.waitKey(0)
+
+
+result = cv2.subtract(dolphin, bicycle)
+cv2.imshow('diff', result)
+cv2.waitKey(0)
+
+###Without using any function  (a-b) + (b-a)##################################3
+dolphin = dolphin.astype('int16')
+bicycle = bicycle.astype('int16')
+result = ((dolphin-bicycle).clip(min = 0) + (bicycle - dolphin).clip(min = 0)).astype('uint8')
+result = result.astype('uint8')
+cv2.imshow('diff', result)
+cv2.waitKey(0)
+
+###################################################################################
+
+#############Adding noise to images using Gaussian distribution#################################
+
+saturn = cv2.imread(r"../saturn.png")
+
+noise = (np.random.randn(np.int(saturn.shape[0]),np.int(saturn.shape[1]),np.int(saturn.shape[-1])) *8)
+noise = noise.astype('uint8')
+cv2.imshow('noise', noise)
+cv2.waitKey(0)
+
+result = saturn + noise
+result = result.astype('uint8')
+cv2.imshow('saturn', result)
+cv2.waitKey(0)
+
+##############################
+
+
+
+
+
+
+
+
